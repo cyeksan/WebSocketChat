@@ -1,7 +1,9 @@
-package com.example.websocketchat.presenter
+package com.example.websocketchat.activity.presenter
 
-import com.example.websocketchat.model.Response
-import com.example.websocketchat.model.Send
+import android.content.Context
+import com.example.websocketchat.R
+import com.example.websocketchat.activity.model.Response
+import com.example.websocketchat.activity.model.Send
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -10,10 +12,11 @@ import okhttp3.WebSocketListener
 import okio.ByteString
 
 class DataPresenter(
+    val context: Context,
     private val iDataPresenter: IDataPresenter
 ) {
     private val gdaxUrl = "ws://192.168.2.85:8080"
-    private var ws:WebSocket ?=null
+    private var ws: WebSocket? = null
 
     init {
 
@@ -24,7 +27,6 @@ class DataPresenter(
     private fun getMessage() {
         val okHttpClient = OkHttpClient()
         val requestCoinPrice: Request = Request.Builder().url(gdaxUrl).build()
-
 
 
         val webSocketListenerCoinPrice: WebSocketListener = object : WebSocketListener() {
@@ -39,13 +41,18 @@ class DataPresenter(
             }
 
             override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
+
             }
 
             override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
 
+                iDataPresenter.error(context.getString(R.string.connection_closing))
+
             }
 
             override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
+
+                iDataPresenter.error(context.getString(R.string.connection_closed))
 
             }
 
@@ -60,11 +67,16 @@ class DataPresenter(
         okHttpClient.dispatcher().executorService().shutdown()
     }
 
-    fun send(id:String,message:String){
-       val sendModel = Send().apply {
+    fun send(id: String, message: String) {
+        val sendModel = Send().apply {
             this.id = id
             this.message = message
         }
         ws!!.send(Gson().toJson(sendModel))
+    }
+
+    fun disconnect() {
+
+        ws?.close(1000, null)
     }
 }

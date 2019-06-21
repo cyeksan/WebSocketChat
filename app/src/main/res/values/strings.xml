@@ -4,4 +4,6 @@
     <string name="message_hint">Enter your message</string>
     <string name="id_hint">Enter your id</string>
     <string name="send">SEND</string>
+    <string name="connection_closing">Closing connection</string>
+    <string name="connection_closed">Connection closed!</string>
 </resources>

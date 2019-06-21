@@ -1,6 +1,6 @@
-package com.example.websocketchat.model
+package com.example.websocketchat.activity.model
 
-class Response {
+class Send {
 
     var id: String? = null
     var message: String? = null
