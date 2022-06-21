@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">WebSocketChat</string>
-    <string name="id_cannot_be_blank">id boş geçilemez</string>
+    <string name="id_cannot_be_blank">Client name cannot be empty!</string>
     <string name="message_hint">Enter your message</string>
-    <string name="id_hint">Enter your id</string>
+    <string name="id_hint">Enter your name</string>
     <string name="send">SEND</string>
     <string name="connection_closing">Closing connection</string>
     <string name="connection_closed">Connection closed!</string>

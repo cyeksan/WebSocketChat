@@ -2,6 +2,7 @@ package com.example.websocketchat.activity.view
 
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.websocketchat.util.CheckConnectionStatusChange
@@ -46,10 +47,10 @@ class MainActivity : AppCompatActivity(), IDataPresenter {
         runOnUiThread {
             if (TextUtils.isEmpty(tv.text)) {
 
-                val txt = "${response.id}: ${response.message}"
+                val txt = "${response.clientName}: ${response.message}"
                 tv.text = txt
             } else {
-                val txt = "${tv.text}\n${response.id}: ${response.message}"
+                val txt = "${tv.text}\n${response.clientName}: ${response.message}"
                 tv.text = txt
             }
 
@@ -62,6 +63,7 @@ class MainActivity : AppCompatActivity(), IDataPresenter {
 
     override fun error(msg: String) {
         runOnUiThread { Toast.makeText(this@MainActivity, msg, Toast.LENGTH_SHORT).show() }
+    Log.e("cansu", msg)
     }
 
     override fun onDestroy() {

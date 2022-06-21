@@ -15,7 +15,7 @@ class DataPresenter(
     val context: Context,
     private val iDataPresenter: IDataPresenter
 ) {
-    private val gdaxUrl = "ws://192.168.2.85:8080"
+    private val gdaxUrl = "ws://10.0.2.2:8080"
     private var ws: WebSocket? = null
 
     init {
@@ -57,19 +57,17 @@ class DataPresenter(
             }
 
             override fun onFailure(webSocket: WebSocket, t: Throwable, response: okhttp3.Response?) {
-
-
-                iDataPresenter.error(t.message.toString())
+                iDataPresenter.error(t.cause?.message.toString())
 
             }
         }
         ws = okHttpClient.newWebSocket(requestCoinPrice, webSocketListenerCoinPrice)
-        okHttpClient.dispatcher().executorService().shutdown()
+        okHttpClient.dispatcher.executorService.shutdown()
     }
 
-    fun send(id: String, message: String) {
+    fun send(clientName: String, message: String) {
         val sendModel = Send().apply {
-            this.id = id
+            this.clientName = clientName
             this.message = message
         }
         ws!!.send(Gson().toJson(sendModel))
