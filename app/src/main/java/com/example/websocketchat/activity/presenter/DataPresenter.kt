@@ -26,10 +26,10 @@ class DataPresenter(
 
     private fun getMessage() {
         val okHttpClient = OkHttpClient()
-        val requestCoinPrice: Request = Request.Builder().url(gdaxUrl).build()
+        val request: Request = Request.Builder().url(gdaxUrl).build()
 
 
-        val webSocketListenerCoinPrice: WebSocketListener = object : WebSocketListener() {
+        val webSocketListener: WebSocketListener = object : WebSocketListener() {
 
             override fun onOpen(webSocket: WebSocket, response: okhttp3.Response) {
 
@@ -61,7 +61,7 @@ class DataPresenter(
 
             }
         }
-        ws = okHttpClient.newWebSocket(requestCoinPrice, webSocketListenerCoinPrice)
+        ws = okHttpClient.newWebSocket(request, webSocketListener)
         okHttpClient.dispatcher.executorService.shutdown()
     }
 

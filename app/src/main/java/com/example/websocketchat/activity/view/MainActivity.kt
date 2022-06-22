@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity(), IDataPresenter {
 
     override fun error(msg: String) {
         runOnUiThread { Toast.makeText(this@MainActivity, msg, Toast.LENGTH_SHORT).show() }
-    Log.e("cansu", msg)
+        Log.e("TAG", msg)
     }
 
     override fun onDestroy() {
